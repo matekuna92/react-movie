@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
 function App() {
   return (
@@ -15,11 +16,24 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React Now!
         </a>
       </header>
     </div>
   );
 }
+
+class HelloMessage extends React.Component {
+  render() {
+    return(
+      <h1 class="hello">Hello, {this.props.username}</h1>
+    )
+  }
+}
+
+ReactDOM.render(
+    <HelloMessage username="Mate" />,
+    document.getElementById('root')
+  );
 
 export default App;
