@@ -12,7 +12,7 @@ import { useHomeFetch } from '../hooks/useHomeFetch';
 import NoImage from '../images/no_image.jpg';
 
 const Home = () => {
-  const { state, loading, error } = useHomeFetch();     // using destructuring to get those properties from the object which we exported
+  const { state, loading, error } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
 
   console.log('State:', state);
 
