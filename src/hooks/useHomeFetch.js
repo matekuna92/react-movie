@@ -34,6 +34,7 @@ export const useHomeFetch = () => {
           results:
             page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
         }));
+        console.warn('Movies:', movies);
       }
       catch(error) {
         setError(true);
