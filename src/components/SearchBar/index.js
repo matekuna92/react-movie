@@ -9,6 +9,15 @@ import { Wrapper, Content } from './searchbar.styles';
 const SearchBar = ({ setSearchTerm }) => {
   const [state, setState] = useState('');
 
+  // useEffect always trigger on initial render. But we want to trigger it only when user type something in: useRef
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(state);
+    }, 500)
+
+    return () => clearTimeout(timer);   // to avoid creating multiply timers on every render
+  }, [setSearchTerm, state])
+
   console.log('state:', state);
 
   return (

@@ -13,7 +13,7 @@ import { useHomeFetch } from '../hooks/useHomeFetch';
 import NoImage from '../images/no_image.jpg';
 
 const Home = () => {
-  const { state, loading, error } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
+  const { state, loading, error, setSearchTerm } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
 
   console.log('State:', state);
  // return <div> Home Page </div>;
@@ -33,7 +33,7 @@ const Home = () => {
         />
       : null
       }
-      <SearchBar />
+      <SearchBar setSearchTerm={setSearchTerm} />   /* pass this down to the SearchBar component, so we can use it there */
       <Grid header='Popular Movies'>
         {state.results.map(movie => (
         //  <div key={movie.id}> {movie.title} </div>
@@ -46,6 +46,7 @@ const Home = () => {
         ))}
       </Grid>
       <Spinner />
+
     </>
     )
 };

@@ -20,6 +20,9 @@ export const useHomeFetch = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');   // new state to set the searchterm for the String that was typed into the search input
+
+  console.log('searchTerm:', searchTerm);
 
   const fetchMovies = async (page, searchTerm = '') => {
       try {
@@ -48,5 +51,5 @@ export const useHomeFetch = () => {
     fetchMovies(1);
   }, []);   // can specify dependencies, when to run this function. If empty array, it only run only on mount, when we mount the Home component
 
-  return { state, loading, error };     // state: state, loading: loading, error: error -> ES6 automatically handles this
+  return { state, loading, error, setSearchTerm };     // state: state, loading: loading, error: error -> ES6 automatically handles this
 }
