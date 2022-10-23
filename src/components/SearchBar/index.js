@@ -8,9 +8,15 @@ import { Wrapper, Content } from './searchbar.styles';
 // When the local state changes, useEffect will be used
 const SearchBar = ({ setSearchTerm }) => {
   const [state, setState] = useState('');
+  const initial = useRef(true);
 
-  // useEffect always trigger on initial render. But we want to trigger it only when user type something in: useRef
+  // useEffect always trigger on initial render. But we want to trigger it only when user type something in: useRef.. useRef wont trigger a rerender, like state
   useEffect(() => {
+    if(initial.current) {   // holds the initial's current value
+      initial.current = false;  // when it's true we know that it's the INITIAL RENDER. With this code snippet we can avoid initial render in useEffect
+                                // So it will only triggered when user types into the input
+      return;
+    }
     const timer = setTimeout(() => {
       setSearchTerm(state);
     }, 500)
