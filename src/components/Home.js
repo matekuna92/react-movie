@@ -7,6 +7,7 @@ import Grid from './Grid';
 import Thumb from './Thumb';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
+import Button from './Button';
 // Hook
 import { useHomeFetch } from '../hooks/useHomeFetch';
 // Image
@@ -45,8 +46,10 @@ const Home = () => {
         />
         ))}
       </Grid>
-      <Spinner />
-
+      {loading && <Spinner /> }
+      {state.page < state.total_pages && !loading && (  // if we dont reach the last page we still want to show the load more button
+        <Button text='Load More' />                     // check not to load anything, when we load we want to display the spinner instead
+      )}
     </>
     )
 };
