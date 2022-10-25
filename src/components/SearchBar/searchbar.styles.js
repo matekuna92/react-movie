@@ -21,7 +21,7 @@ export const Content = styled.div`
   img {
     position: absolute;
     left: 15px;
-    top: 15px;
+    top: 13px;
     width: 30px;
   }
 

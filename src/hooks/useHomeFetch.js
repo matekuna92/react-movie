@@ -46,10 +46,13 @@ export const useHomeFetch = () => {
       setLoading(false);  // loading = false, when we gragged all the movies (loading spinner should disappear for example, if we implement that to show up during fetch)
   }
 
-  // Initial render
+  // Initial render and search
   useEffect( () => {
-    fetchMovies(1);
-  }, []);   // can specify dependencies, when to run this function. If empty array, it only run only on mount, when we mount the Home component
+    setState(initialState); // wipe out state before making new search, because we want to make a search, show spinner, then show the actual movies
+    fetchMovies(1, searchTerm);
+  // trigger not only on render, but every time the user types in something in the search bar
+  // useEffect is triggered, when the searchTerm changes
+  }, [searchTerm]);   // can specify dependencies, when to run this function. If empty array, it only run only on mount, when we mount the Home component
 
-  return { state, loading, error, setSearchTerm };     // state: state, loading: loading, error: error -> ES6 automatically handles this
+  return { state, loading, error, searchTerm, setSearchTerm };     // state: state, loading: loading, error: error -> ES6 automatically handles this
 }

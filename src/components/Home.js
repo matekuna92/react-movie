@@ -13,7 +13,7 @@ import { useHomeFetch } from '../hooks/useHomeFetch';
 import NoImage from '../images/no_image.jpg';
 
 const Home = () => {
-  const { state, loading, error, setSearchTerm } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
+  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
 
   console.log('State:', state);
  // return <div> Home Page </div>;
@@ -25,7 +25,7 @@ const Home = () => {
  // check if there is any movie to avoid error, if we dont have any
   return (
     <>
-      {state.results[0] ?
+      {!searchTerm && state.results[0] ?  // HeroImage should not be displayed when we use search
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
           title={state.results[0].original_title}
@@ -34,7 +34,7 @@ const Home = () => {
       : null
       }
       <SearchBar setSearchTerm={setSearchTerm} />   /* pass this down to the SearchBar component, so we can use it there */
-      <Grid header='Popular Movies'>
+      <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
         {state.results.map(movie => (
         //  <div key={movie.id}> {movie.title} </div>
         <Thumb
