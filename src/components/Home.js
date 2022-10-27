@@ -14,7 +14,7 @@ import { useHomeFetch } from '../hooks/useHomeFetch';
 import NoImage from '../images/no_image.jpg';
 
 const Home = () => {
-  const { state, loading, error, searchTerm, setSearchTerm } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
+  const { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore } = useHomeFetch();     // using destructuring to get those properties from the object which we exported (export const useHomeFetch)
 
   console.log('State:', state);
  // return <div> Home Page </div>;
@@ -22,6 +22,10 @@ const Home = () => {
  // in jsx you can only return one parent element, so if we have more components, we have to wrap them with ()
  // React Fragments: Can return a Component inside empty brackets, if we dont want to create <div> around the component:
  // <> <HeroImage /> </>
+
+if(error) {
+  return <div> Something went wrong. </div>
+}
 
  // check if there is any movie to avoid error, if we dont have any
   return (
@@ -34,7 +38,8 @@ const Home = () => {
         />
       : null
       }
-      <SearchBar setSearchTerm={setSearchTerm} />   /* pass this down to the SearchBar component, so we can use it there */
+       // pass this down to the SearchBar component, so we can use it there
+      <SearchBar setSearchTerm={setSearchTerm} />
       <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
         {state.results.map(movie => (
         //  <div key={movie.id}> {movie.title} </div>
@@ -48,7 +53,7 @@ const Home = () => {
       </Grid>
       {loading && <Spinner /> }
       {state.page < state.total_pages && !loading && (  // if we dont reach the last page we still want to show the load more button
-        <Button text='Load More' />                     // check not to load anything, when we load we want to display the spinner instead
+        <Button text='Load More' callback={() => setIsLoadingMore(true)} />                     // check not to load anything, when we load we want to display the spinner instead
       )}
     </>
     )

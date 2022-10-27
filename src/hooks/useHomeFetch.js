@@ -21,6 +21,7 @@ export const useHomeFetch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');   // new state to set the searchterm for the String that was typed into the search input
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   console.log('searchTerm:', searchTerm);
 
@@ -54,5 +55,12 @@ export const useHomeFetch = () => {
   // useEffect is triggered, when the searchTerm changes
   }, [searchTerm]);   // can specify dependencies, when to run this function. If empty array, it only run only on mount, when we mount the Home component
 
-  return { state, loading, error, searchTerm, setSearchTerm };     // state: state, loading: loading, error: error -> ES6 automatically handles this
+  // Load More
+  useEffect( () => {
+    if(!isLoadingMore) return;
+
+    fetchMovies(state.page + 1, searchTerm);
+  }, [isLoadingMore, searchTerm, state.page]);    // trigger the useEffect when isLoadingMore changes
+
+  return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };     // state: state, loading: loading, error: error -> ES6 automatically handles this
 }
