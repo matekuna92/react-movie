@@ -60,6 +60,7 @@ export const useHomeFetch = () => {
     if(!isLoadingMore) return;
 
     fetchMovies(state.page + 1, searchTerm);
+    setIsLoadingMore(false);
   }, [isLoadingMore, searchTerm, state.page]);    // trigger the useEffect when isLoadingMore changes
 
   return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };     // state: state, loading: loading, error: error -> ES6 automatically handles this

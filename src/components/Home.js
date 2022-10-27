@@ -38,7 +38,7 @@ if(error) {
         />
       : null
       }
-       // pass this down to the SearchBar component, so we can use it there
+       {/* pass this down to the SearchBar component, so we can use it there}} */}
       <SearchBar setSearchTerm={setSearchTerm} />
       <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
         {state.results.map(movie => (
