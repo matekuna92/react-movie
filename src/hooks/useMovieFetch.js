@@ -39,6 +39,7 @@ export const useMovieFetch = movieId => {
         // but then it gives an error for the function, because the fetchMovie function gets recreated on every rerender, so
         // useEffect think it's a new function every time, so it causes infinite loop. To fix this, we need to wrap the function inside
         // useCallback, so function wont be recreated unless the movieId changes!
+        // it's not always needed, we can keep the fetchMovie() function inside useEffect as originally, so it works
 
     return { state, loading, error };
 }
