@@ -13,3 +13,9 @@ export const convertMoney = money => {
   });
   return formatter.format(money);
 };
+
+export const isPersistedState = stateName => {
+  const sessionState = sessionStorage.getItem(stateName);
+
+  return sessionState && JSON.parse(sessionState);  // ** can only write to sessionStorage as string.. parse the JSon object back
+}

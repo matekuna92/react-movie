@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
 // API
 import API from '../API';
+// helpers
+import { isPersistedState } from '../helpers';
 
 const initialState = {      // if we want to reset
   page: 0,
@@ -49,6 +51,19 @@ export const useHomeFetch = () => {
 
   // Initial render and search
   useEffect( () => {
+    // check if we have a session state before we retrieve anything from the API
+    // if we have one, we retrieve that one instead
+    if(!searchTerm) {
+      const sessionState = isPersistedState('homeState');
+
+      if(sessionState) {
+        console.log('grabbing from storage');
+        setState(sessionState);
+        return;
+      }
+    }
+    console.log('gragging from API');
+    // if there's no state in session, we get the date from the API as originally
     setState(initialState); // wipe out state before making new search, because we want to make a search, show spinner, then show the actual movies
     fetchMovies(1, searchTerm);
   // trigger not only on render, but every time the user types in something in the search bar
@@ -62,6 +77,13 @@ export const useHomeFetch = () => {
     fetchMovies(state.page + 1, searchTerm);
     setIsLoadingMore(false);
   }, [isLoadingMore, searchTerm, state.page]);    // trigger the useEffect when isLoadingMore changes
+
+  // Write to session storage useEffect
+  useEffect( () => {
+    if(!searchTerm) {
+      sessionStorage.setItem('homeState', JSON.stringify(state));  // ** can only write string to storage, then we parse if back when read in the helper js
+    }
+  }, [searchTerm, state])
 
   return { state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore };     // state: state, loading: loading, error: error -> ES6 automatically handles this
 }
