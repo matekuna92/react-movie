@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Wrapper, Content, Text } from './heroimage.styles';
 
 const HeroImage = prop => (         // can use destructuring, so dont have to use "prop." for every property
@@ -13,5 +14,11 @@ const HeroImage = prop => (         // can use destructuring, so dont have to us
 
     </Wrapper>
 );
+
+HeroImage.propTypes = {
+    image: PropTypes.string,
+    title: PropTypes.string,
+    text: PropTypes.string
+};
 
 export default HeroImage;
