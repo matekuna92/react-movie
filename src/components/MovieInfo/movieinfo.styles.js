@@ -56,7 +56,7 @@ export const Text = styled.div`
         font-weight: 800;
         border-radius: 50%;
         margin: 0;
-        padding: 10px;
+        padding: 20px;
     }
 
     .director {
