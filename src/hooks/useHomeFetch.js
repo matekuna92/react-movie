@@ -62,7 +62,7 @@ export const useHomeFetch = () => {
         return;
       }
     }
-    console.log('gragging from API');
+    console.log('grabbing from API');
     // if there's no state in session, we get the date from the API as originally
     setState(initialState); // wipe out state before making new search, because we want to make a search, show spinner, then show the actual movies
     fetchMovies(1, searchTerm);
